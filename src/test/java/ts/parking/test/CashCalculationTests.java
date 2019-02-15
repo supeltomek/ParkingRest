@@ -20,14 +20,14 @@ public class CashCalculationTests {
 	@Test
 	public void parkingAmount_whenDriverDisabled_thenNextHourLarger1p2fromHourBefore() {
 		assertEquals((BigDecimal.valueOf(0.0)).add(BigDecimal.valueOf(2.0)).add(BigDecimal.valueOf(2.4)).add(BigDecimal.valueOf(2.88))
-				.setScale(2, RoundingMode.HALF_EVEN),
+				.setScale(2, RoundingMode.HALF_UP),
 				CashCalculations.calculateParkingPaymentAmount(start, end, DriverType.Disabled, Currency.PLN));
 	}
 	
 	@Test
 	public void parkinAmount_whenDriverRegular_thenNextHourLarger1p2fromHourBefore() {
 		assertEquals((BigDecimal.valueOf(1.0)).add(BigDecimal.valueOf(2.0)).add(BigDecimal.valueOf(3.0)).add(BigDecimal.valueOf(4.5))
-				.setScale(2, RoundingMode.HALF_EVEN), 
+				.setScale(2, RoundingMode.HALF_UP),
 				CashCalculations.calculateParkingPaymentAmount(start, end, DriverType.Regular, Currency.PLN));
 	}
 }

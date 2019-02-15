@@ -60,19 +60,17 @@ public class CashCalculations {
 				paymentAmount = calculatedAmount;
 			}
 		}
-		return paymentAmount.setScale(2, RoundingMode.HALF_EVEN);		
+		return paymentAmount.setScale(2, RoundingMode.HALF_UP);
 	}
 	
 	public static BigDecimal calculateAmountFromDate(int year, int month, int day, Iterable<Parking> parkings) {
 		BigDecimal amountFromDate = BigDecimal.ZERO;
 		for(Parking p : parkings) {
-			if(p.getStartDateTime().getYear() == year 
-					&& p.getStartDateTime().getMonthValue() == month 
-					&& p.getStartDateTime().getDayOfMonth() == day) {
+			if(ChronoUnit.HOURS.between(LocalDateTime.of(year, month, day, 0, 0), p.getStartDateTime()) < 24){
 				amountFromDate = amountFromDate.add(p.getPayment().getPaymentAmount());
 			}
 		}
-		return amountFromDate.setScale(2, RoundingMode.HALF_EVEN);
+		return amountFromDate.setScale(2, RoundingMode.HALF_UP);
 	}
 
 }
